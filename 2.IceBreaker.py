@@ -15,10 +15,10 @@ if __name__ == "__main__":
 
     ## Prompt to be used in the Prompt Template
     summary_template = """
-    Given the Linkedin information {information} (the information is in JSON format) about a person, I want you to create:
+    Given the Linkedin information {information} about a person, I want you to create:
 
     1. A title in capital. 
-    2. A hort summary.
+    2. A short summary.
     3. Two interesting facts about the person. 
     """
 
@@ -30,15 +30,8 @@ if __name__ == "__main__":
 
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
 
-    linkedin_data= scrape_linkedin_profile(linkedin_profile_url='https://gist.githubusercontent.com/rabocse/6cf6dc6808f5abf983acdb4e5f6dba03/raw/3b8132051891134ce4e4cfc97912d1ee107f9463/scrapedLinkedinProfile.json')
+    linkedin_data= scrape_linkedin_profile(linkedin_profile_url='https://gist.githubusercontent.com/rabocse/6cf6dc6808f5abf983acdb4e5f6dba03/raw/3b8132051891134ce4e4cfc97912d1ee107f9463/scrapedLinkedinProfile.json')  
 
-    ## res = chain.invoke(information=linkedin_data.json())
-    data =str(linkedin_data.json())    
+    res = chain.invoke(input={"information":linkedin_data})
 
-    print(" ==================================\n")
-
-    res = chain.invoke(input={"information":data})
-    
-    print(res)
-
-    print(" ==================================\n")
+    print(res["text"])
